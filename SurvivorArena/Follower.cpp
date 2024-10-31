@@ -34,9 +34,15 @@ void Follower::update(float deltaTime)
 		direction *= speed_ * deltaTime;    // Scale by speed
 	}
 	if(direction.x < 0 )
+	{
 		sprite_.setScale(-1.0,1.0);
+		hitBox_ = sf::RectangleShape{sf::Vector2f(36,64)};
+	}
 	if(direction.x >= 0 )
+	{
 		sprite_.setScale(1.0,1.0);
+		hitBox_ = sf::RectangleShape{sf::Vector2f(-36,64)};
+	}
 	position_ += direction; // Update position towards player
 	if (clock_.getElapsedTime().asSeconds() > 0.1f)
 	{
@@ -58,5 +64,5 @@ void Follower::update(float deltaTime)
 
 void Follower::display(sf::RenderWindow& window)
 {
-	Actor::display(window);
+	Enemy::display(window);
 }

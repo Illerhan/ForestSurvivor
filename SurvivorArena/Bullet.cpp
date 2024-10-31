@@ -1,6 +1,7 @@
 ﻿#include "Bullet.h"
 
 #include <iostream>
+#include <GL/glew.h>
 #include <SFML/Window/Mouse.hpp>
 
 #include "Player.h"
@@ -26,6 +27,7 @@ Bullet::Bullet(sf::Vector2f playerPos, sf::Vector2f position) : lifeTime_(5.0f)
 	}
 	float angle = std::atan2(direction_.y, direction_.x) * 180 / 3.14159f; // Convert radians to degrees
 	sprite_.setRotation(angle);
+
 }
 
 void Bullet::update(float deltaTime)

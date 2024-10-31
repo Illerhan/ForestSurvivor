@@ -53,11 +53,15 @@ void Shooters::update(float deltaTime)
 	}
 	
 	if(direction.x < 0 )
+	{
+		hitBox_ = sf::RectangleShape{sf::Vector2f(36,64)};
 		sprite_.setScale(-1.0,1.0);
+	}
 	
 	if(direction.x >= 0 )
 	{
 		sprite_.setScale(1.0,1.0);
+		hitBox_ = sf::RectangleShape{sf::Vector2f(-36,64)};
 		pos = sprite_.getPosition()+ sf::Vector2f(-50,20);
 	}
 		
@@ -83,5 +87,5 @@ void Shooters::update(float deltaTime)
 void Shooters::display(sf::RenderWindow& window)
 {
 	
-	Actor::display(window);
+	Enemy::display(window);
 }

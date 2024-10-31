@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -25,5 +26,7 @@ private:
 	uint8_t hp_ = 0;
 	bool lookRight_ = true;
 	sf::Clock shootClock_;
+	sf::RectangleShape hitBox_{sf::Vector2f(-36,64)};
+	
 		
 };

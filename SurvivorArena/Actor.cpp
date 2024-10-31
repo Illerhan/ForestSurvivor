@@ -14,5 +14,5 @@ void Actor::update(float deltaTime)
 void Actor::display(sf::RenderWindow& window)
 {
 	window.draw(sprite_);
-
+	
 }

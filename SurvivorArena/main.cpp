@@ -7,7 +7,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(850,650), "Survivor Arena");
+    sf::RenderWindow window(sf::VideoMode(1900,1060), "Survivor Arena");
     sf::Event event;
     Game* game = new Game();
     game->init(&window);

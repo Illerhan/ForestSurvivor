@@ -122,7 +122,7 @@ void Game::close()
 }
 
 bool Game::checkCollision(const Bullet& bullet, const Enemy& enemy) {
-	return bullet.getSprite().getGlobalBounds().intersects(enemy.getSprite().getGlobalBounds());
+	return bullet.getSprite().getGlobalBounds().intersects(enemy.getHitBox());
 }
 
 void Game::display(sf::RenderWindow* window)

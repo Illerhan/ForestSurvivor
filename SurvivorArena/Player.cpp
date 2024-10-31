@@ -42,12 +42,21 @@ void Player::update(float deltaTime)
 	}
 	sprite_.setTextureRect(spriteRectPostion_);
 	sprite_.setPosition(position_);
+
+	
 	Actor::update(deltaTime);
 }
 
 void Player::display(sf::RenderWindow& window)
 {
 	Actor::display(window);
+	
+	hitBox_.setFillColor(sf::Color::Red);
+	sf::FloatRect bounds = sprite_.getGlobalBounds();
+	float centerX = bounds.left + bounds.width / 2;
+	float centerY = bounds.top + bounds.height / 2;
+	hitBox_.setPosition(centerX, centerY);
+	window.draw(hitBox_);
 }
 
 void Player::setPostion(int x, int y)
@@ -71,6 +80,7 @@ void Player::moveLeft(float deltaTime )
 	if (lookRight_)
 	{
 		sprite_.setScale(sf::Vector2f(-1.f,1.f));
+		hitBox_ = sf::RectangleShape{sf::Vector2f(36,64)};
 		lookRight_ = false;
 	}
 	if (position_.x >= 20)
@@ -82,6 +92,7 @@ void Player::moveRight(sf::RenderWindow* window, float deltaTime)
 	if (!lookRight_)
 	{
 		sprite_.setScale(sf::Vector2f(1.f,1.f));
+		hitBox_ = sf::RectangleShape{sf::Vector2f(-36,64)};
 		lookRight_ = true;
 	}
 	if (position_.x <= window->getSize().x)

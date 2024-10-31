@@ -9,7 +9,6 @@ public:
 	Bullet(sf::Vector2f playerPos, sf::Vector2f position);
 	void update(float deltaTime) override;
 	void display(sf::RenderWindow& window) override;
-	
 
 private:
 	float lifeTime_;
