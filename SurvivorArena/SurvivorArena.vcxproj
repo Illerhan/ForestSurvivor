@@ -141,23 +141,31 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="DropItem.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnergyBall.cpp" />
     <ClCompile Include="Follower.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HealItem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shooters.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="WeaponBoost.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="DropItem.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnergyBall.h" />
     <ClInclude Include="Follower.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="HealItem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shooters.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponBoost.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

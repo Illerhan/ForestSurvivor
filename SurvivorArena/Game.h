@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "EnergyBall.h"
 #include "Player.h"
+#include "Weapon.h"
 
 class Game
 {
@@ -16,7 +17,7 @@ public:
 		return players_;
 	}
 	
-	Game();
+	Game(sf::RenderWindow& window);
 	~Game();
 	void spawnWave();
 	void update(float deltaTime, sf::RenderWindow* window);
@@ -28,13 +29,17 @@ public:
 	void addEnemy(Enemy* enemy);
 	void removeEnemy(Enemy* enemy);
 	void removeBullet(Bullet* bullet);
+	void removeWeapon(Weapon* weapon);
 	static void addEnergyBall(EnergyBall* energyB);
 	static void addBullet(Bullet* bullet);
+	void addWeapon(Weapon* weapon);
 	static void removeEnergyBall(EnergyBall* energyB);
 	void removePlayer(Player* player);
 	void checkIfDead();
+	void createInterface();
 
 private:
+	sf::RenderWindow* window_;
 	std::vector<Player*> players_;
 	sf::Texture backgroundTexture_;
 	sf::Sprite backgroundSprite_;
@@ -45,4 +50,6 @@ private:
 	float spawnInterval_ = 5.0f;
 	static std::vector<Bullet*> bullets_;
 	static std::vector<EnergyBall*> energyBalls_;
+	std::vector<Weapon*> weaponsP1_;
+	std::vector<Weapon*> weaponsP2_;
 };

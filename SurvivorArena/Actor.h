@@ -1,9 +1,17 @@
 ﻿#pragma once
 #include <fwd.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Clock.hpp>
 
+enum DmgType
+{
+	Explosive,
+	Simple,
+	Perforing,
+	DoT
+};
 namespace sf
 {
 	class RenderWindow;
@@ -31,6 +39,9 @@ protected:
 
 public:
 	bool isDead() const {return isDead_;}
+	sf::Vector2f hitBoxPosition_;
+	sf::RectangleShape hitBox_;
+	bool checkCollision(const sf::RectangleShape& other) const;
 	
 	virtual void update(float deltaTime);
 	virtual void display(sf::RenderWindow& window);

@@ -10,6 +10,7 @@
 
 Player::Player()
 {
+	hitBox_ = sf::RectangleShape{sf::Vector2f(-36,64)};
 	if (!texture_.loadFromFile("src/sprites/Run.png")) {
 		std::cerr << "Error loading player texture! \n";
 	}
@@ -50,13 +51,6 @@ void Player::update(float deltaTime)
 void Player::display(sf::RenderWindow& window)
 {
 	Actor::display(window);
-	
-	hitBox_.setFillColor(sf::Color::Red);
-	sf::FloatRect bounds = sprite_.getGlobalBounds();
-	float centerX = bounds.left + bounds.width / 2;
-	float centerY = bounds.top + bounds.height / 2;
-	hitBox_.setPosition(centerX, centerY);
-	window.draw(hitBox_);
 }
 
 void Player::setPostion(int x, int y)
@@ -101,7 +95,7 @@ void Player::moveRight(sf::RenderWindow* window, float deltaTime)
 
 void Player::shoot(sf::RenderWindow& window)
 {
-	if(shootClock_.getElapsedTime().asSeconds() >= 1)
+	if(shootClock_.getElapsedTime().asSeconds() >= 0.1)
 	{
 		sf::Vector2f targetPosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
 		Game::addBullet(new Bullet(position_,targetPosition));

@@ -5,13 +5,14 @@
 
 EnergyBall::EnergyBall(Player* player,sf::Vector2f position) : player_(player)
 {
+	hitBox_ = sf::RectangleShape {sf::Vector2f(18,18)};
 	if (!texture_.loadFromFile("src/sprites/energyBall.png")) {
 		std::cerr << "Error loading player texture! \n";
 	}
 	spriteRectPostion_=sf::IntRect(0,0,64,128);
 	sprite_ = sf::Sprite(texture_,spriteRectPostion_);
 	position_ = position ;
-	speed_ = 150.f;
+	speed_ = 350.f;
 	sprite_.setTexture(texture_);
 	sprite_.setPosition(position);
 	sprite_.rotate(0);

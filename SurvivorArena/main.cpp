@@ -5,13 +5,16 @@
 
 #include "Game.h"
 
+
+
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1900,1060), "Survivor Arena");
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Survivor Arena",sf::Style::Fullscreen);
     sf::Event event;
-    Game* game = new Game();
+    Game* game = new Game(window);
     game->init(&window);
     static sf::Clock clock; // Create a static clock to measure time
+    
     
     while (window.isOpen())
     {
@@ -60,10 +63,11 @@ int main()
         {
             game->get_players()[0]->shoot(window);
         }
-
+        
         game->update(deltaTime,&window);
         game->display(&window);
         window.display();
     }
    
 }
+

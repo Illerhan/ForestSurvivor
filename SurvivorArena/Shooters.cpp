@@ -81,7 +81,7 @@ void Shooters::update(float deltaTime)
 	}
 	sprite_.setPosition(position_);
 	sprite_.setTextureRect(spriteRectPostion_);
-	Actor::update(deltaTime);
+	Enemy::update(deltaTime);
 }
 
 void Shooters::display(sf::RenderWindow& window)

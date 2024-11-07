@@ -8,6 +8,7 @@
 
 Bullet::Bullet(sf::Vector2f playerPos, sf::Vector2f position) : lifeTime_(5.0f)
 {
+	hitBox_ = sf::RectangleShape {sf::Vector2f(18,18)};
 	if (!texture_.loadFromFile("src/sprites/blueBullet.png")) {
 		std::cerr << "Error loading player texture! \n";
 	}
@@ -40,6 +41,12 @@ void Bullet::update(float deltaTime)
 	{
 		isDead_ = true;
 	}
+	sf::FloatRect bounds = sprite_.getGlobalBounds();
+	float centerX = bounds.left + bounds.width / 2;
+	float centerY = bounds.top + bounds.height / 2;
+	hitBoxPosition_ = sf::Vector2f(centerX,centerY);
+	hitBox_.setPosition(hitBoxPosition_);
+	
 	Actor::update(deltaTime);
 }
 
@@ -47,3 +54,4 @@ void Bullet::display(sf::RenderWindow& window)
 {
 	Actor::display(window);
 }
+

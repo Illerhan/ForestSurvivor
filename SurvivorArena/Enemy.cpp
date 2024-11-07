@@ -2,11 +2,18 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-Enemy::Enemy()
-= default;
+Enemy::Enemy(): hp_(0), destroyed_(false)
+{
+	hitBox_ = sf::RectangleShape{sf::Vector2f(-36, 64)};
+}
 
 Enemy::~Enemy()
 = default;
+
+void Enemy::update(float deltaTime)
+{
+	Actor::update(deltaTime);
+}
 
 bool Enemy::isDestroyed()
 {
@@ -16,11 +23,4 @@ bool Enemy::isDestroyed()
 void Enemy::display(sf::RenderWindow& window)
 {
 	Actor::display(window);
-	hitBox_.setFillColor(sf::Color::Red);
-	sf::FloatRect bounds = sprite_.getGlobalBounds();
-	float centerX = bounds.left + bounds.width / 2;
-	float centerY = bounds.top + bounds.height / 2;
-	hitBox_.setPosition(centerX, centerY);
-	window.draw(hitBox_);
-	
 }

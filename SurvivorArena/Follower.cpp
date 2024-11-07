@@ -59,7 +59,7 @@ void Follower::update(float deltaTime)
 	}
 	sprite_.setTextureRect(spriteRectPostion_);
 	sprite_.setPosition(position_);
-	Actor::update(deltaTime);
+	Enemy::update(deltaTime);
 }
 
 void Follower::display(sf::RenderWindow& window)

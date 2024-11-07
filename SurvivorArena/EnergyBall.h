@@ -15,4 +15,6 @@ public:
 	Player* player_;
 	sf::Vector2f direction_;
 	float lifeTime_ = 2.f;
+private:
+	
 };
