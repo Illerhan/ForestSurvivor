@@ -8,6 +8,7 @@
 #include "EnergyBall.h"
 #include "Player.h"
 #include "Weapon.h"
+#include "WeaponBoost.h"
 
 class Game
 {
@@ -24,6 +25,7 @@ public:
 	void init(sf::RenderWindow* window);
 	void close();
 	static bool checkCollision(const Bullet& bullet, const Enemy& enemy);
+	bool lootBoost(const Player& player, const WeaponBoost& boost);
 	void addPlayer(Player* player);
 	void display(sf::RenderWindow* window);
 	void addEnemy(Enemy* enemy);
@@ -33,7 +35,9 @@ public:
 	static void addEnergyBall(EnergyBall* energyB);
 	static void addBullet(Bullet* bullet);
 	void addWeapon(Weapon* weapon);
+	void addBoost(WeaponBoost* boost);
 	static void removeEnergyBall(EnergyBall* energyB);
+	void removeBoosts(WeaponBoost* boost);
 	void removePlayer(Player* player);
 	void checkIfDead();
 	void createInterface();
@@ -44,6 +48,7 @@ private:
 	sf::Texture backgroundTexture_;
 	sf::Sprite backgroundSprite_;
 	std::vector<Enemy*> enemies_;
+	std::vector<WeaponBoost*> boosts_;
 	int enemiesPerWave_ = 5;
 	int currentWave_ = 0;
 	float timeSinceLastSpawn_ = 0.0f;

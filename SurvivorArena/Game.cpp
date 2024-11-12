@@ -76,11 +76,7 @@ void Game::init(sf::RenderWindow* window)
 	float scaleY = static_cast<float>(windowSize.y) / textureSize.y;
 
 	backgroundSprite_.setScale(scaleX, scaleY);
-	//
-	Weapon* test = new Weapon(Simple);
-	addWeapon(test);
-	Weapon* test2 = new Weapon(DoT);
-	addWeapon(test2);
+	
 	// Setting up players in the game
 	Player* playerOne = new Player();
 	playerOne->setPostion(windowSize.x/2,windowSize.y/2);
@@ -124,6 +120,11 @@ void Game::update(float deltaTime, sf::RenderWindow* window)
 		weapon->update(deltaTime);
 	}
 
+	for (auto boost : boosts_)
+	{
+		boost->update(deltaTime);
+	}
+
 	timeSinceLastSpawn_ += deltaTime;
 	if (timeSinceLastSpawn_ >= spawnInterval_) {
 		spawnWave();
@@ -148,6 +149,25 @@ void Game::update(float deltaTime, sf::RenderWindow* window)
 			++it; // Only increment if bullet is not removed
 		}
 	}
+	for (auto it = boosts_.begin(); it != boosts_.end();) {
+		WeaponBoost* boost = *it;
+		bool bulletRemoved = false; // Flag to track if bullet should be removed
+        
+		for (Player* player : players_) { // Assuming you have a vector of enemies
+			if (lootBoost(*player, *boost)) {
+				// Handle collision (e.g., remove bullet and enemy)
+				it = boosts_.erase(it); // Remove bullet
+				removeBoosts(boost);
+				std::cout<<"Hello \n";
+				break; // Break inner loop if collision detected
+				
+			}
+		}
+        
+		if (!bulletRemoved) {
+			++it; // Only increment if bullet is not removed
+		}
+	}
 	checkIfDead();
 }
 
@@ -158,6 +178,10 @@ void Game::close()
 
 bool Game::checkCollision(const Bullet& bullet, const Enemy& enemy) {
 	return bullet.checkCollision(enemy.getHitBox());
+}
+
+bool Game::lootBoost(const Player& player, const WeaponBoost& boost) {
+	return player.checkCollision(boost.getHitBox());
 }
 
 void Game::display(sf::RenderWindow* window)
@@ -183,8 +207,12 @@ void Game::display(sf::RenderWindow* window)
 	{
 		bullet->display(*window);
 	}
+	for (auto boost : boosts_)
+	{
+		boost->display(*window);
+	}
 
-	createInterface();
+	createInterface(); 
 
 	for (auto weapon : weaponsP1_)
 	{
@@ -194,6 +222,7 @@ void Game::display(sf::RenderWindow* window)
 	{
 		weapon->display(*window);
 	}
+
 	
 }
 
@@ -223,6 +252,10 @@ void Game::addWeapon(Weapon* weapon)
 	weaponsP1_.push_back(weapon);
 }
 
+void Game::addBoost(WeaponBoost* boost)
+{
+	boosts_.push_back(boost);
+}
 //
 
 // Remove methods to erase object from vectors when they are dead
@@ -233,6 +266,12 @@ void Game::removeEnergyBall(EnergyBall* energyB)
 
 }
 
+void Game::removeBoosts(WeaponBoost* boost)
+{
+	auto iter = std::find(begin(boosts_),end(boosts_),boost);
+	boosts_.erase(iter);
+}
+
 void Game::removePlayer(Player* player)
 {
 	auto iter = std::find(begin(players_), end(players_), player);
@@ -241,6 +280,13 @@ void Game::removePlayer(Player* player)
 
 void Game::removeEnemy(Enemy* enemy)
 {
+	int rand = std::rand()%100;
+	if (rand < 20)
+	{
+		WeaponBoost* boost = new WeaponBoost(enemy->get_position()) ;
+		addBoost(boost);
+	}
+	
 	auto iter = std::find(begin(enemies_), end(enemies_), enemy);
 	enemies_.erase(iter);
 }
@@ -294,6 +340,14 @@ void Game::checkIfDead()
 		{
 			removeBullet(bullet);
 			delete bullet;
+		}
+	}
+	for (auto boost : boosts_)
+	{
+		if(boost->isDead())
+		{
+			removeBoosts(boost);
+			delete boost;
 		}
 	}
 }
